@@ -6,6 +6,10 @@ const app = express();
 
 const path = require('path');
 
+// 使用第三方開發的中間件 cors
+const cors = require('cors');
+app.use(cors());
+
 const mysql = require('mysql2');
 require('dotenv').config();
 // 這裡不會像爬蟲那樣，只建立一個連線 (mysql.createConnection)
@@ -109,6 +113,7 @@ app.get('/ssr', (req, res, next) => {
 // RESTful API
 // 取得 stocks 的列表
 app.get('/stocks', async (req, res, next) => {
+  console.log('我是股票列表');
   let [data, fields] = await pool.execute('SELECT * FROM stocks');
   res.json(data);
 });
